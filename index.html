@@ -3136,7 +3136,26 @@
             </div>
             <div class="part">
               <h4>Types de filtrage</h4>
-              <p>Il existe plusieurs types de firewall. Pour l'examen, il faut surtout retenir leur idee generale. Le filtrage sans etat regarde chaque paquet tout seul. Le filtrage avec etat regarde aussi si le paquet fait partie d'une connexion deja commencée. Le firewall applicatif, ou proxy, regarde aussi le service utilise, par exemple HTTP. Les NGFW sont des firewalls plus avances qui regroupent plusieurs fonctions de securite.</p>
+              <p>Il existe plusieurs types de firewall. Pour l'examen, il faut surtout retenir une idee simple pour chacun.</p>
+              <div class="attack-concepts">
+                <div class="attack-concept">
+                  <b>Filtrage sans etat</b>
+                  <span>Le firewall regarde chaque paquet tout seul. Il verifie surtout l'adresse IP, le port et le protocole.</span>
+                </div>
+                <div class="attack-concept">
+                  <b>Filtrage avec etat</b>
+                  <span>Le firewall regarde aussi si le paquet appartient a une connexion deja commencée. Il prend donc une decision plus intelligente.</span>
+                </div>
+                <div class="attack-concept">
+                  <b>Firewall applicatif / proxy</b>
+                  <span>Le firewall regarde le service utilise, par exemple HTTP. Il peut faire un controle plus fin du trafic.</span>
+                </div>
+                <div class="attack-concept">
+                  <b>NGFW</b>
+                  <span>C'est un firewall moderne qui combine plusieurs fonctions de securite dans un seul equipement.</span>
+                </div>
+              </div>
+              <div class="exam-reflex"><b>Reflexe examen :</b> sans etat = chaque paquet separement ; avec etat = connexion deja suivie ; proxy = service applicatif ; NGFW = firewall plus complet.</div>
               <div class="explain-table-wrap">
                 <table class="explain-table">
                   <caption>Types de firewalls a distinguer</caption>
