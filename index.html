@@ -1814,6 +1814,48 @@
     .sim-line.blue::after { color: #2563eb; }
     .sim-line.gold::after { color: #b7791f; }
 
+    .sim-arrow {
+      position: absolute;
+      height: 10px;
+      border-radius: 999px;
+      background: currentColor;
+      color: #0f766e;
+      transform-origin: left center;
+      z-index: 2;
+      box-shadow: 0 0 0 2px rgba(255,255,255,.72), 0 10px 24px rgba(24,33,31,.14);
+    }
+
+    .sim-arrow::before {
+      content: "";
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      width: 0;
+      height: 0;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      border-left: 16px solid currentColor;
+      transform: translateY(-50%);
+    }
+
+    .sim-arrow::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 16%;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: white;
+      opacity: .9;
+      transform: translate(-50%, -50%);
+      animation: arrowDot 1.15s ease-in-out infinite;
+    }
+
+    .sim-arrow.red { color: #b42318; }
+    .sim-arrow.blue { color: #2563eb; }
+    .sim-arrow.gold { color: #b7791f; }
+
     .scenario-token {
       position: absolute;
       width: 22px;
@@ -1858,6 +1900,148 @@
       font-size: 12px;
       font-weight: 900;
       z-index: 4;
+    }
+
+    .scenario-stage[data-scenario-stage="firewall-decision"] {
+      min-height: 430px;
+      background:
+        radial-gradient(circle at 20% 35%, rgba(37,99,235,.08), transparent 26%),
+        radial-gradient(circle at 52% 35%, rgba(183,121,31,.10), transparent 28%),
+        radial-gradient(circle at 82% 35%, rgba(15,118,110,.08), transparent 28%),
+        linear-gradient(90deg, rgba(15,118,110,.06) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(15,118,110,.05) 1px, transparent 1px),
+        #fbfdfb;
+      background-size: auto, auto, auto, 34px 34px, 34px 34px;
+    }
+
+    .scenario-stage[data-scenario-stage="firewall-decision"] .sim-node {
+      width: clamp(122px, 20%, 156px);
+      min-height: 92px;
+    }
+
+    .firewall-node {
+      outline: 8px solid rgba(15,118,110,.10);
+      border-left-color: #0f766e;
+    }
+
+    .firewall-path {
+      position: absolute;
+      left: 13%;
+      right: 13%;
+      top: 38%;
+      height: 9px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(37,99,235,.62), rgba(183,121,31,.74), rgba(15,118,110,.58));
+      z-index: 1;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.6), 0 10px 24px rgba(24,33,31,.12);
+    }
+
+    .firewall-path.drop {
+      right: 42%;
+      background: linear-gradient(90deg, rgba(180,35,24,.58), rgba(183,121,31,.78));
+    }
+
+    .firewall-path.drop-blocked {
+      left: 60%;
+      right: 16%;
+      background: repeating-linear-gradient(90deg, rgba(180,35,24,.48) 0 12px, rgba(180,35,24,.12) 12px 22px);
+      opacity: .58;
+    }
+
+    .firewall-path.drop-blocked::before,
+    .firewall-path.drop-blocked::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 36px;
+      height: 5px;
+      border-radius: 999px;
+      background: #b42318;
+      transform-origin: center;
+    }
+
+    .firewall-path.drop-blocked::before { transform: translate(-50%, -50%) rotate(45deg); }
+    .firewall-path.drop-blocked::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+    .firewall-packet {
+      position: absolute;
+      top: calc(38% + 4px);
+      left: 18%;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #2563eb;
+      z-index: 6;
+      box-shadow: 0 0 0 9px rgba(37,99,235,.14), 0 0 24px rgba(37,99,235,.42);
+      transform: translate(-50%, -50%);
+      animation: firewallPacketAllow 3.2s ease-in-out infinite;
+    }
+
+    .firewall-packet.drop {
+      background: #b42318;
+      box-shadow: 0 0 0 9px rgba(180,35,24,.14), 0 0 24px rgba(180,35,24,.42);
+      animation: firewallPacketDrop 3.2s ease-in-out infinite;
+    }
+
+    .firewall-decision {
+      position: absolute;
+      left: 58%;
+      top: 15%;
+      transform: translateX(-50%);
+      z-index: 7;
+      display: grid;
+      place-items: center;
+      min-width: 92px;
+      min-height: 42px;
+      border-radius: 999px;
+      background: #0f766e;
+      color: white;
+      font-weight: 950;
+      box-shadow: 0 12px 26px rgba(15,118,110,.22);
+    }
+
+    .firewall-decision.drop {
+      background: #b42318;
+      box-shadow: 0 12px 26px rgba(180,35,24,.24);
+    }
+
+    .firewall-block-wall {
+      position: absolute;
+      left: 57.5%;
+      top: 24%;
+      width: 12px;
+      height: 96px;
+      border-radius: 999px;
+      background: #b42318;
+      z-index: 6;
+      box-shadow: 0 0 0 8px rgba(180,35,24,.12), 0 14px 30px rgba(180,35,24,.20);
+    }
+
+    .firewall-note {
+      position: absolute;
+      left: 50%;
+      top: 54%;
+      transform: translateX(-50%);
+      z-index: 6;
+      max-width: min(86%, 520px);
+      border: 1px solid #cfe0da;
+      border-radius: 8px;
+      background: rgba(255,255,255,.96);
+      padding: 9px 12px;
+      color: #12231f;
+      font-size: 13px;
+      font-weight: 850;
+      text-align: center;
+      box-shadow: 0 10px 22px rgba(24,33,31,.08);
+    }
+
+    .scenario-stage[data-scenario-stage="firewall-decision"] .scenario-token {
+      display: none;
+    }
+
+    .scenario-stage[data-scenario-stage="firewall-decision"] .scenario-current-label {
+      display: none;
     }
 
     .scenario-stage[data-scenario-stage="network-attack"] .sim-node {
@@ -2110,6 +2294,20 @@
     @keyframes tokenBeat {
       0%, 100% { transform: translate(-50%, -50%) scale(1); }
       50% { transform: translate(-50%, -50%) scale(1.18); }
+    }
+    @keyframes arrowDot {
+      from { left: 10%; }
+      to { left: 92%; }
+    }
+    @keyframes firewallPacketAllow {
+      0%, 12% { left: 18%; background: #2563eb; }
+      42%, 58% { left: 50%; background: #b7791f; }
+      88%, 100% { left: 82%; background: #0f766e; }
+    }
+    @keyframes firewallPacketDrop {
+      0%, 16% { left: 18%; transform: translate(-50%, -50%) scale(1); }
+      48%, 62% { left: 50%; transform: translate(-50%, -50%) scale(1.08); }
+      76%, 100% { left: 56%; transform: translate(-50%, -50%) scale(.88); }
     }
 
     .chips {
@@ -2584,10 +2782,43 @@
       .scenario-stage[data-scenario-stage="vpn-tunnel"] {
         min-height: 520px;
       }
+      .scenario-stage[data-scenario-stage="firewall-decision"] {
+        min-height: 560px;
+      }
       .scenario-stage[data-scenario-stage="crypto-signature"] .sim-node,
       .scenario-stage[data-scenario-stage="crypto-basics"] .sim-node {
         width: 42%;
         min-height: 86px;
+      }
+      .scenario-stage[data-scenario-stage="firewall-decision"] .sim-node {
+        width: 42%;
+        min-height: 86px;
+      }
+      .scenario-stage[data-scenario-stage="firewall-decision"] .sim-node:nth-child(1) {
+        left: 5% !important;
+        top: 18% !important;
+      }
+      .scenario-stage[data-scenario-stage="firewall-decision"] .sim-node:nth-child(2) {
+        left: 53% !important;
+        top: 18% !important;
+      }
+      .scenario-stage[data-scenario-stage="firewall-decision"] .sim-node:nth-child(3) {
+        left: 29% !important;
+        right: auto !important;
+        top: 48% !important;
+      }
+      .scenario-stage[data-scenario-stage="firewall-decision"] .firewall-path,
+      .scenario-stage[data-scenario-stage="firewall-decision"] .firewall-packet,
+      .scenario-stage[data-scenario-stage="firewall-decision"] .firewall-block-wall,
+      .scenario-stage[data-scenario-stage="firewall-decision"] .firewall-decision {
+        display: none;
+      }
+      .scenario-stage[data-scenario-stage="firewall-decision"] .firewall-note {
+        top: 70%;
+        max-width: 88%;
+      }
+      .scenario-stage[data-scenario-stage="firewall-decision"] .scenario-current-label {
+        bottom: 126px;
       }
       .scenario-stage[data-scenario-stage="web-flow"] .sim-node {
         width: 42%;
@@ -4859,8 +5090,8 @@
               <div class="sim-node blue" style="left:7%;top:42%"><b>Base donnees</b><small>donnees sensibles</small></div>
               <div class="sim-node red" style="left:42%;top:15%"><b>Utilisateur non autorise</b><small>lecture interdite</small></div>
               <div class="sim-node" style="right:7%;top:42%"><b>Contre-mesure</b><small>chiffrement + droits</small></div>
-              <div class="sim-line red" style="left:22%;top:45%;width:24%;transform:rotate(-22deg)"></div>
-              <div class="sim-line" style="left:55%;top:43%;width:26%"></div>
+              <div class="sim-arrow red" style="left:43%;top:39%;width:24%;transform:rotate(158deg)"></div>
+              <div class="sim-arrow" style="left:34%;top:58%;width:40%"></div>
               <div class="sim-pill" style="left:39%;top:53%">C = Confidentialite</div>`
           },
           tamper: {
@@ -5072,24 +5303,32 @@
             label: 'HTTP vers DMZ',
             info: ['Accept', 'Le paquet correspond a une regle autorisant HTTP vers le serveur en DMZ.'],
             steps: ['Lire source : WAN.', 'Lire destination : serveur DMZ.', 'Lire port : 80/TCP.', 'Trouver regle Accept.', 'Laisser passer.'],
+            focus: [0, 2, 1, 1, 2],
             render: () => `
-              <div class="sim-node blue" style="left:6%;top:28%"><b>WAN</b><small>client externe</small></div>
-              <div class="sim-node gold" style="left:42%;top:28%"><b>Firewall</b><small>lit la regle</small></div>
-              <div class="sim-node" style="right:6%;top:28%"><b>DMZ</b><small>serveur Web</small></div>
-              <div class="sim-line blue" style="left:21%;top:37%;width:22%"></div>
-              <div class="sim-line" style="left:56%;top:37%;width:22%"></div>
+              <div class="sim-node blue" style="left:7%;top:24%"><b>WAN</b><small>source externe</small></div>
+              <div class="sim-node gold firewall-node" style="left:39%;top:24%"><b>Firewall</b><small>verifie source, destination, port</small></div>
+              <div class="sim-node" style="right:7%;top:24%"><b>DMZ</b><small>serveur Web 80/TCP</small></div>
+              <div class="firewall-path"></div>
+              <div class="firewall-packet"></div>
+              <div class="firewall-decision">ACCEPT</div>
+              <div class="firewall-note">La regle WAN -> DMZ Web sur 80/TCP correspond : le paquet continue vers la DMZ.</div>
               <table class="rule-mini-table"><tr><th>Action</th><th>Source</th><th>Destination</th><th>Port</th></tr><tr class="active"><td>Accept</td><td>WAN</td><td>DMZ Web</td><td>80 TCP</td></tr><tr><td>Drop</td><td>*</td><td>LAN</td><td>*</td></tr></table>`
           },
           deny: {
             label: 'WAN vers LAN',
             info: ['Drop', 'Aucune regle ne doit permettre un acces direct du WAN vers le LAN. La regle par defaut bloque.'],
             steps: ['Lire source : WAN.', 'Destination : LAN interne.', 'Aucune autorisation explicite.', 'Regle Drop appliquee.', 'LAN protege.'],
+            focus: [0, 2, 1, 1, 2],
             render: () => `
-              <div class="sim-node red" style="left:6%;top:28%"><b>WAN</b><small>source externe</small></div>
-              <div class="sim-node gold" style="left:42%;top:28%"><b>Firewall</b><small>deny par defaut</small></div>
-              <div class="sim-node blue" style="right:6%;top:28%"><b>LAN</b><small>interne</small></div>
-              <div class="sim-line red" style="left:21%;top:37%;width:22%"></div>
-              <div class="sim-pill" style="left:58%;top:34%;background:#b42318">DROP</div>
+              <div class="sim-node red" style="left:7%;top:24%"><b>WAN</b><small>source externe</small></div>
+              <div class="sim-node gold firewall-node" style="left:39%;top:24%"><b>Firewall</b><small>aucune regle accept</small></div>
+              <div class="sim-node blue" style="right:7%;top:24%"><b>LAN</b><small>interne protege</small></div>
+              <div class="firewall-path drop"></div>
+              <div class="firewall-path drop-blocked"></div>
+              <div class="firewall-packet drop"></div>
+              <div class="firewall-block-wall"></div>
+              <div class="firewall-decision drop">DROP</div>
+              <div class="firewall-note">Le paquet arrive au firewall, puis s'arrete. La partie vers le LAN est barree : aucun acces direct WAN -> LAN.</div>
               <table class="rule-mini-table"><tr><th>Action</th><th>Source</th><th>Destination</th><th>Port</th></tr><tr><td>Accept</td><td>WAN</td><td>DMZ Web</td><td>80 TCP</td></tr><tr class="active"><td>Drop</td><td>*</td><td>LAN</td><td>*</td></tr></table>`
           }
         }
@@ -5297,7 +5536,7 @@
         `<button class="scenario-tab ${key === state.active ? 'active' : ''}" data-scenario-id="${id}" data-scenario-mode="${key}">${escHtml(item.label)}</button>`
       )).join('');
       stage.innerHTML = mode.render(frame);
-      applyScenarioFrame(stage, frame, mode.steps[frame]);
+      applyScenarioFrame(stage, frame, mode.steps[frame], mode.focus);
       info.innerHTML = `<b>${escHtml(mode.info[0])}</b>${escHtml(mode.info[1])}`;
       steps.innerHTML = mode.steps.map((step, index) => (
         `<div class="scenario-step ${index === frame ? 'active' : ''}"><span>${index + 1}</span><div>${escHtml(step)}</div></div>`
@@ -5306,12 +5545,14 @@
       if (pauseBtn) pauseBtn.textContent = state.paused ? 'Reprendre' : 'Pause';
     }
 
-    function applyScenarioFrame(stage, frame, label) {
+    function applyScenarioFrame(stage, frame, label, focusMap) {
       const nodes = [...stage.querySelectorAll('.sim-node')];
       const lines = [...stage.querySelectorAll('.sim-line')];
       if (!nodes.length) return;
 
-      const activeIndex = Math.min(frame, nodes.length - 1);
+      const activeIndex = Array.isArray(focusMap)
+        ? Math.min(focusMap[frame] ?? frame, nodes.length - 1)
+        : Math.min(frame, nodes.length - 1);
       nodes.forEach((node, index) => {
         node.classList.toggle('focus', index === activeIndex);
         node.classList.toggle('done', index < activeIndex);
