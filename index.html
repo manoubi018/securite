@@ -3097,23 +3097,80 @@
             </div>
           </article>
 
-          <article id="chapitre-4" class="course-summary reveal searchable" data-text="chapitre 4 pare feu firewall politique securite filtrage paquet stateful stateless proxy circuit application dmz wan lan pfsense regles">
+          <article id="chapitre-4" class="course-summary reveal searchable" data-text="chapitre 4 pare feu firewall politique securite filtrage paquet stateful stateless proxy circuit application dmz wan lan pfsense regles acl ips ids vpn nat napt topologie bastion">
             <h3>- Chapitre 4 : Les pare-feux</h3>
             <div class="part">
               <h4>Role du firewall</h4>
-              <p>Un pare-feu est une contre-mesure technique qui applique une politique de securite entre plusieurs zones de confiance. Par exemple, Internet est une zone peu fiable, le LAN est une zone interne plus fiable, et la DMZ est une zone intermediaire pour les serveurs exposes. Le firewall decide quels flux sont autorises ou bloques.</p>
+              <p>Un pare-feu est une contre-mesure technique qui applique une politique de securite entre plusieurs zones de confiance. Il filtre le trafic entre Internet, le LAN et parfois une DMZ. Son role est de laisser passer seulement les flux autorises et de bloquer les autres. A l'examen, il faut toujours raisonner en termes de zones, de services et de regles.</p>
+            </div>
+            <div class="part">
+              <h4>LAN, WAN et DMZ</h4>
+              <p>Le WAN represente l'exterieur, souvent Internet : c'est la zone la moins fiable. Le LAN est le reseau interne de l'entreprise : postes des employes, ressources internes et donnees sensibles. La DMZ est une zone intermediaire placee entre Internet et le LAN. Elle contient les serveurs qui doivent etre accessibles depuis l'exterieur, par exemple un serveur Web, DNS ou de messagerie, sans exposer directement le LAN.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Comprendre les zones</caption>
+                  <thead><tr><th>Zone</th><th>Niveau de confiance</th><th>Contenu typique</th><th>Idee cle</th></tr></thead>
+                  <tbody>
+                    <tr><td>WAN</td><td>Faible</td><td>Internet, utilisateurs externes.</td><td>Zone publique et peu fiable.</td></tr>
+                    <tr><td>DMZ</td><td>Intermediaire</td><td>Serveur Web, DNS public, messagerie.</td><td>Expose des services sans ouvrir le LAN.</td></tr>
+                    <tr><td>LAN</td><td>Eleve</td><td>Postes internes, serveurs prives, donnees.</td><td>Zone la plus protegee.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="exam-reflex"><b>Reflexe examen :</b> si un serveur doit etre accessible depuis Internet, il doit aller en <b>DMZ</b>, pas directement dans le <b>LAN</b>.</div>
             </div>
             <div class="part">
               <h4>Politiques de securite</h4>
-              <p>Une politique permissive autorise tout sauf ce qui est interdit. Une politique restrictive refuse tout sauf ce qui est autorise. En securite, la politique restrictive est souvent preferee car elle suit le principe d'interdiction par defaut. Elle limite les flux inutiles et reduit la surface d'attaque.</p>
+              <p>Une politique permissive autorise tout sauf ce qui est interdit. Une politique restrictive refuse tout sauf ce qui est autorise. En securite, la politique restrictive est souvent preferee car elle suit le principe d'interdiction par defaut. C'est cette logique qui apparait le plus souvent dans les tableaux d'examen.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Permissive vs restrictive</caption>
+                  <thead><tr><th>Politique</th><th>Principe</th><th>Avantage</th><th>Limite</th></tr></thead>
+                  <tbody>
+                    <tr><td>Permissive</td><td>Tout est autorise sauf ce qui est interdit.</td><td>Confort utilisateur.</td><td>Moins securisee.</td></tr>
+                    <tr><td>Restrictive</td><td>Tout est interdit sauf ce qui est autorise.</td><td>Meilleure securite.</td><td>Il faut bien definir les flux necessaires.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="exam-reflex"><b>Reflexe examen :</b> une derniere regle generale de type <code>Drop * * * * *</code> signifie souvent une politique de <b>refus par defaut</b>.</div>
             </div>
             <div class="part">
               <h4>Types de filtrage</h4>
-              <p>Le filtrage de paquets sans etat analyse chaque paquet independamment selon l'adresse source, l'adresse destination, le port et le protocole. Le filtrage avec etat suit les connexions deja etablies et prend une decision plus intelligente. Les firewalls applicatifs analysent le contenu au niveau application, par exemple pour HTTP.</p>
+              <p>Le cours original distingue plusieurs technologies. Pour l'examen, il faut surtout retenir l'idee generale de chacune. Le filtrage sans etat verifie chaque paquet separement. Le filtrage avec etat suit les connexions deja etablies. Le firewall applicatif ou proxy regarde le contenu applicatif, par exemple HTTP. Les NGFW combinent plusieurs fonctions, parfois avec IPS, inspection TLS/SSL et controle applicatif.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Types de firewalls a distinguer</caption>
+                  <thead><tr><th>Type</th><th>Ce qu'il regarde</th><th>Point fort</th><th>Idee a retenir</th></tr></thead>
+                  <tbody>
+                    <tr><td>Filtrage de paquets</td><td>IP, ports, protocole.</td><td>Simple et rapide.</td><td>Chaque paquet est compare a des criteres.</td></tr>
+                    <tr><td>Circuit level gateway</td><td>Session, handshake TCP.</td><td>Cache des infos du reseau prive.</td><td>Raisonne sur la session plus que sur le contenu.</td></tr>
+                    <tr><td>Firewall applicatif / proxy</td><td>Commandes applicatives.</td><td>Controle plus fin.</td><td>Peut filtrer HTTP, FTP, Telnet, etc.</td></tr>
+                    <tr><td>Stateful / multicouche</td><td>Paquets + etat + application.</td><td>Plus secure.</td><td>Combine plusieurs niveaux d'analyse.</td></tr>
+                    <tr><td>NGFW</td><td>Filtrage + fonctions avancees.</td><td>Protection complete.</td><td>Peut integrer IPS, inspection TLS, QoS, anti-malware.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="part">
+              <h4>Actions d'une regle</h4>
+              <p>Une regle firewall ne dit pas seulement qui parle a qui. Elle dit aussi quoi faire avec le trafic. Dans le cours original, on retrouve les actions <code>allow</code>, <code>deny</code> et <code>drop</code>. Dans les tableaux du site et de l'examen, on peut aussi voir <code>accept</code> ou <code>reject</code>.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Sens des actions</caption>
+                  <thead><tr><th>Action</th><th>Sens simple</th><th>A retenir pour l'examen</th></tr></thead>
+                  <tbody>
+                    <tr><td>Allow / Accept</td><td>Le trafic passe.</td><td>Le flux est autorise.</td></tr>
+                    <tr><td>Deny</td><td>Le trafic est bloque.</td><td>Le flux est refuse.</td></tr>
+                    <tr><td>Drop</td><td>Le trafic est jete.</td><td>Le flux est bloque, souvent sans reponse utile.</td></tr>
+                    <tr><td>Reject</td><td>Le trafic est refuse avec retour.</td><td>Le flux est bloque.</td></tr>
+                    <tr><td>*</td><td>Champ libre / n'importe lequel.</td><td>Tout est concerne pour ce champ.</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="part">
               <h4>Regles firewall</h4>
-              <p>Une regle se lit avec plusieurs champs : action, source, destination, port et protocole. Les regles sont traitees dans un ordre precis, souvent de haut en bas. A l'examen, il faut lire la table de regles et determiner si un flux passe ou non. Une regle generale de refus en bas bloque tout ce qui n'a pas ete autorise avant.</p>
+              <p>Une regle se lit avec plusieurs champs : action, source, destination, port et protocole. Les regles sont traitees dans un ordre precis, souvent de haut en bas. La premiere regle qui correspond s'applique. Si aucune regle ne correspond et qu'une regle generale de refus existe en bas, le flux est bloque.</p>
               <div class="explain-table-wrap">
                 <table class="explain-table">
                   <caption>Lire une regle firewall</caption>
@@ -3128,18 +3185,81 @@
                   </tbody>
                 </table>
               </div>
+              <div class="exam-reflex"><b>Methode examen :</b> 1) relever la source, 2) relever la destination, 3) relever le protocole, 4) relever le port destination, 5) lire les regles de haut en bas, 6) prendre la premiere qui correspond, 7) sinon appliquer le refus par defaut.</div>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Exemple de lecture</caption>
+                  <thead><tr><th>Regle</th><th>Lecture en mots simples</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>Accept | DMZ network | * | LAN network | 22 | TCP</code></td><td>Les machines de la DMZ peuvent se connecter au LAN en SSH sur le port 22/TCP.</td></tr>
+                    <tr><td><code>Drop | * | * | * | * | *</code></td><td>Tout le reste est bloque.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="part">
+              <h4>Topologies et architecture</h4>
+              <p>Le cours original presente plusieurs topologies utiles : le bastion host, le screened subnet ou DMZ, et le multi-homed firewall. Pour l'examen, il faut surtout savoir reconnaitre l'idee de la DMZ et comprendre qu'un pare-feu avec plusieurs interfaces peut separer plusieurs zones de securite.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Topologies a connaitre</caption>
+                  <thead><tr><th>Topologie</th><th>Idee centrale</th><th>Ce qu'il faut retenir</th></tr></thead>
+                  <tbody>
+                    <tr><td>Bastion host</td><td>Machine durcie placee entre deux reseaux.</td><td>Elle sert de point de passage et de protection.</td></tr>
+                    <tr><td>DMZ / screened subnet</td><td>Zone intermediaire pour les serveurs publics.</td><td>Expose des services sans ouvrir le LAN.</td></tr>
+                    <tr><td>Multi-homed firewall</td><td>Pare-feu avec plusieurs interfaces.</td><td>Permet de separer WAN, LAN et DMZ.</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="part">
               <h4>pfSense et architecture</h4>
-              <p>Dans les fascicules, pfSense est utilise pour construire une architecture WAN, LAN et DMZ. Le serveur public doit etre place en DMZ pour eviter d'exposer directement le LAN. Le role de pfSense est de filtrer les communications entre ces zones et de controler les acces selon les besoins.</p>
+              <p>Dans les fascicules, pfSense est utilise pour construire une architecture WAN, LAN et DMZ. Le serveur public doit etre place en DMZ pour eviter d'exposer directement le LAN. Le role de pfSense est de filtrer les communications entre ces zones, de controler les acces selon les besoins, et parfois d'assurer aussi des fonctions comme NAT/NAPT, segmentation ou VPN.</p>
+            </div>
+            <div class="part">
+              <h4>ACL, regles manquantes et traduction de la politique</h4>
+              <p>Le cours original insiste sur la methode pratique : d'abord decrire la politique de securite en texte, puis la traduire en ACL, c'est-a-dire en une liste de regles de controle d'acces. A l'examen, on peut donc te demander soit de lire une ACL existante, soit de dire quelles regles manquent pour appliquer correctement une politique.</p>
+              <div class="exam-reflex"><b>Reflexe examen :</b> si une politique parle d'un flux autorise dans les deux sens, il faut verifier qu'il existe bien toutes les regles necessaires. Si un cas n'est pas couvre, alors une regle manque.</div>
+            </div>
+            <div class="part">
+              <h4>Limites du firewall et equipements complementaires</h4>
+              <p>Le firewall est essentiel, mais il ne suffit pas contre toutes les attaques. Il filtre des flux selon des criteres et des regles, mais il ne remplace ni un antivirus, ni un antimalware, ni une sensibilisation des utilisateurs. Certaines attaques applicatives ou internes peuvent necessiter un IDS ou un IPS. C'est pour cela que les examens demandent parfois quel equipement ajouter lorsque le firewall ne suffit pas.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Ce qu'un firewall peut et ne peut pas faire</caption>
+                  <thead><tr><th>Peut faire</th><th>Ne peut pas faire seul</th></tr></thead>
+                  <tbody>
+                    <tr><td>Filtrer paquets, ports, protocoles, journaliser, segmenter.</td><td>Stopper toutes les attaques ou remplacer un antivirus.</td></tr>
+                    <tr><td>Proteger des zones et appliquer une politique de securite.</td><td>Bloquer toute attaque interne ou toute ingenierie sociale.</td></tr>
+                    <tr><td>Parfois faire NAT/NAPT, VPN, fonctions avancees.</td><td>Garantir a lui seul toute la securite du systeme.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="part">
+              <h4>Fonctions complementaires : NAT, segmentation et VPN</h4>
+              <p>Le cours original rappelle que beaucoup de firewalls modernes ne font pas seulement du filtrage. Ils peuvent aussi faire du NAT/NAPT pour traduire des adresses privees vers une adresse publique, de la segmentation pour separer plusieurs zones de securite, et du VPN pour securiser les communications a distance. Dans pfSense, ces fonctions apparaissent souvent ensemble.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Fonctions complementaires a retenir</caption>
+                  <thead><tr><th>Fonction</th><th>Role</th><th>Question d'examen typique</th></tr></thead>
+                  <tbody>
+                    <tr><td>NAT / NAPT</td><td>Traduire des IP privees vers une IP publique.</td><td>Comment le LAN sort vers Internet ?</td></tr>
+                    <tr><td>Segmentation</td><td>Separer LAN, WAN, DMZ ou VLAN.</td><td>Pourquoi isoler des zones ?</td></tr>
+                    <tr><td>VPN</td><td>Assurer la confidentialite des communications a distance.</td><td>Teletravailleur : client-to-site ; deux reseaux : site-to-site.</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="course-path">
               <strong>Chemin de revision du chapitre 4</strong>
               <div class="path-steps">
                 <div class="path-step"><span>1</span><b>Dessiner les zones</b><em>WAN, LAN, DMZ et position du firewall.</em></div>
-                <div class="path-step"><span>2</span><b>Reprendre le fascicule 4</b><em>Installation pfSense, interfaces et regles de filtrage.</em></div>
+                <div class="path-step"><span>2</span><b>Fixer la politique</b><em>Refus par defaut ou autorisation par defaut, puis flux necessaires.</em></div>
                 <div class="path-step"><span>3</span><b>Lire les tables</b><em>Action, source, destination, port, protocole, ordre.</em></div>
-                <div class="path-step"><span>4</span><b>Justifier la DMZ</b><em>Serveur public expose sans ouvrir directement le LAN.</em></div>
+                <div class="path-step"><span>4</span><b>Faire un cas paquet</b><em>Trouver la premiere regle correspondante et conclure accepte/refuse.</em></div>
+                <div class="path-step"><span>5</span><b>Justifier la DMZ</b><em>Serveur public expose sans ouvrir directement le LAN.</em></div>
+                <div class="path-step"><span>6</span><b>Penser aux limites</b><em>IPS, IDS, NAT, segmentation, VPN selon l'enonce.</em></div>
               </div>
             </div>
             <div class="lesson-lab" data-lesson="c4">
