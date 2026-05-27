@@ -3105,13 +3105,13 @@
             </div>
             <div class="part">
               <h4>LAN, WAN et DMZ</h4>
-              <p>Le WAN represente l'exterieur, souvent Internet : c'est la zone la moins fiable. Le LAN est le reseau interne de l'entreprise : postes des employes, ressources internes et donnees sensibles. La DMZ est une zone intermediaire placee entre Internet et le LAN. Elle contient les serveurs qui doivent etre accessibles depuis l'exterieur, par exemple un serveur Web, DNS ou de messagerie, sans exposer directement le LAN.</p>
+              <p>Le WAN represente l'exterieur, en pratique surtout Internet : c'est la zone la moins fiable. Le LAN est le reseau interne de l'entreprise : postes des employes, ressources internes et donnees sensibles. La DMZ est une zone intermediaire placee entre Internet et le LAN. Elle contient les serveurs qui doivent etre accessibles depuis Internet, par exemple un serveur Web, DNS ou de messagerie, sans exposer directement le LAN.</p>
               <div class="explain-table-wrap">
                 <table class="explain-table">
                   <caption>Comprendre les zones</caption>
-                  <thead><tr><th>Zone</th><th>Niveau de confiance</th><th>Contenu typique</th><th>Idee cle</th></tr></thead>
+                  <thead><tr><th>Zone</th><th>Niveau de confiance</th><th>Exemples</th><th>Idee cle</th></tr></thead>
                   <tbody>
-                    <tr><td>WAN</td><td>Faible</td><td>Internet, utilisateurs externes.</td><td>Zone publique et peu fiable.</td></tr>
+                    <tr><td>WAN</td><td>Faible</td><td>Internet, utilisateurs hors de l'entreprise.</td><td>Zone publique et peu fiable.</td></tr>
                     <tr><td>DMZ</td><td>Intermediaire</td><td>Serveur Web, DNS public, messagerie.</td><td>Expose des services sans ouvrir le LAN.</td></tr>
                     <tr><td>LAN</td><td>Eleve</td><td>Postes internes, serveurs prives, donnees.</td><td>Zone la plus protegee.</td></tr>
                   </tbody>
@@ -3136,17 +3136,17 @@
             </div>
             <div class="part">
               <h4>Types de filtrage</h4>
-              <p>Le cours original distingue plusieurs technologies. Pour l'examen, il faut surtout retenir l'idee generale de chacune. Le filtrage sans etat verifie chaque paquet separement. Le filtrage avec etat suit les connexions deja etablies. Le firewall applicatif ou proxy regarde le contenu applicatif, par exemple HTTP. Les NGFW combinent plusieurs fonctions, parfois avec IPS, inspection TLS/SSL et controle applicatif.</p>
+              <p>Il existe plusieurs types de firewall. Pour l'examen, il faut surtout retenir leur idee generale. Le filtrage sans etat regarde chaque paquet tout seul. Le filtrage avec etat regarde aussi si le paquet fait partie d'une connexion deja commencée. Le firewall applicatif, ou proxy, regarde aussi le service utilise, par exemple HTTP. Les NGFW sont des firewalls plus avances qui regroupent plusieurs fonctions de securite.</p>
               <div class="explain-table-wrap">
                 <table class="explain-table">
                   <caption>Types de firewalls a distinguer</caption>
                   <thead><tr><th>Type</th><th>Ce qu'il regarde</th><th>Point fort</th><th>Idee a retenir</th></tr></thead>
                   <tbody>
-                    <tr><td>Filtrage de paquets</td><td>IP, ports, protocole.</td><td>Simple et rapide.</td><td>Chaque paquet est compare a des criteres.</td></tr>
-                    <tr><td>Circuit level gateway</td><td>Session, handshake TCP.</td><td>Cache des infos du reseau prive.</td><td>Raisonne sur la session plus que sur le contenu.</td></tr>
-                    <tr><td>Firewall applicatif / proxy</td><td>Commandes applicatives.</td><td>Controle plus fin.</td><td>Peut filtrer HTTP, FTP, Telnet, etc.</td></tr>
-                    <tr><td>Stateful / multicouche</td><td>Paquets + etat + application.</td><td>Plus secure.</td><td>Combine plusieurs niveaux d'analyse.</td></tr>
-                    <tr><td>NGFW</td><td>Filtrage + fonctions avancees.</td><td>Protection complete.</td><td>Peut integrer IPS, inspection TLS, QoS, anti-malware.</td></tr>
+                    <tr><td>Filtrage de paquets</td><td>IP, ports, protocole.</td><td>Simple et rapide.</td><td>Il regarde les informations de base du paquet.</td></tr>
+                    <tr><td>Circuit level gateway</td><td>Session, handshake TCP.</td><td>Cache des infos du reseau prive.</td><td>Il regarde surtout la connexion, pas seulement le paquet.</td></tr>
+                    <tr><td>Firewall applicatif / proxy</td><td>Service utilise.</td><td>Controle plus fin.</td><td>Il peut distinguer HTTP, FTP, Telnet, etc.</td></tr>
+                    <tr><td>Stateful / multicouche</td><td>Paquets + connexion + parfois application.</td><td>Plus securise.</td><td>Il combine plusieurs niveaux de verification.</td></tr>
+                    <tr><td>NGFW</td><td>Filtrage + fonctions avancees.</td><td>Protection plus complete.</td><td>C'est un firewall moderne avec plusieurs outils de securite.</td></tr>
                   </tbody>
                 </table>
               </div>
