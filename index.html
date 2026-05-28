@@ -2858,16 +2858,17 @@
           <article id="chapitre-1" class="course-summary reveal searchable" data-text="chapitre 1 notions base securite informatique definition enjeux metiers dic terminologie risque menace vulnerabilite contre mesure regles">
             <h3>- Chapitre 1 : Les notions de base de la securite informatique</h3>
             <div class="part">
-              <h4>Definition de la securite informatique</h4>
-              <p>La securite informatique regroupe les moyens techniques, humains et organisationnels utilises pour proteger un systeme d'information. Un systeme d'information ne contient pas seulement des ordinateurs : il contient aussi des donnees, des logiciels, du materiel, des procedures et des utilisateurs. Proteger le systeme revient donc a proteger tous ces actifs contre les acces non autorises, les erreurs, les vols, les pannes et les attaques.</p>
+              <h4>Ce qu'il faut comprendre avant tout</h4>
+              <p>La securite informatique protege le systeme d'information de l'organisation : materiel, logiciels, donnees, procedures et utilisateurs. Le but n'est pas de tout bloquer, mais de reduire le risque tout en laissant le metier fonctionner. Dans les examens, cette idee revient souvent sous forme de raisonnement simple : identifier l'actif a proteger, dire ce qui le menace, preciser l'impact possible, puis proposer une contre-mesure adaptee.</p>
             </div>
             <div class="part">
-              <h4>Enjeux de la securite</h4>
-              <p>L'objectif n'est pas de bloquer le travail des utilisateurs, mais de reduire les risques qui peuvent perturber l'activite de l'organisation. Une faille peut provoquer une fuite de donnees, une modification non autorisee, une indisponibilite de service ou une perte financiere. La securite contribue donc a la qualite de service et a la confiance dans le systeme.</p>
+              <h4>Reflexe d'examen : partir de l'actif et de l'impact</h4>
+              <p>Une question de securite commence presque toujours par un actif : compte utilisateur, base de donnees, service reseau, application ou equipement. Ensuite, il faut regarder ce qui peut arriver a cet actif : lecture non autorisee, modification, interruption de service ou impossibilite de prouver une action. Ce chapitre sert donc de base pour tous les autres : avant de parler d'attaque, de cryptographie ou de firewall, il faut savoir quel objectif de securite est touche et pourquoi.</p>
+              <div class="exam-reflex"><b>Reflexe QCM / question ouverte :</b> actif vise -> objectif de securite touche -> menace ou faiblesse -> impact -> contre-mesure.</div>
             </div>
             <div class="part">
               <h4>Services de securite : DIC et preuve</h4>
-              <p>La confidentialite garantit que seules les personnes autorisees peuvent lire les donnees. L'integrite garantit que les donnees ne sont pas modifiees sans autorisation. La disponibilite garantit que les services restent accessibles au moment voulu. La preuve, aussi appelee tracabilite ou non-repudiation selon le contexte, permet de prouver qu'une action a ete realisee par une entite donnee.</p>
+              <p>Les examens reutilisent tres souvent les objectifs de securite. Il faut savoir les reconnaitre rapidement. La confidentialite concerne la lecture non autorisee. L'integrite concerne la modification non autorisee. La disponibilite concerne l'acces au service au bon moment. La preuve, appelee aussi tracabilite ou non-repudiation selon le contexte, sert a montrer qu'une action a bien ete effectuee par une entite precise et qu'elle ne peut pas la nier facilement.</p>
               <div class="explain-table-wrap">
                 <table class="explain-table">
                   <caption>Comment utiliser DIC dans une question d'examen</caption>
@@ -2880,10 +2881,11 @@
                   </tbody>
                 </table>
               </div>
+              <p>Le point important est de ne pas repondre avec un mot appris par coeur sans lien avec la situation. Si des donnees sont lues en clair, il faut penser confidentialite. Si le message est modifie, il faut penser integrite. Si le service est sature ou tombe, il faut penser disponibilite. Si l'on demande de prouver qui a fait quoi, il faut penser preuve ou non-repudiation.</p>
             </div>
             <div class="part">
-              <h4>Terminologie : vulnerabilite, menace, risque, impact</h4>
-              <p>Une vulnerabilite est une faiblesse exploitable, par exemple un port ouvert inutile, un mot de passe faible ou une application mal configuree. Une menace est un evenement ou un acteur capable d'exploiter cette faiblesse. Le risque correspond a la possibilite que la menace exploite la vulnerabilite et provoque un impact. La contre-mesure est la solution mise en place pour reduire ce risque.</p>
+              <h4>Terminologie qui tombe en examen : vulnerabilite, menace, risque, impact</h4>
+              <p>C'est la partie la plus importante a clarifier dans le resume, parce que les sujets d'examen aiment faire distinguer ces mots. Une vulnerabilite est une faiblesse exploitable. Une menace est ce qui peut exploiter cette faiblesse : attaquant, malware, erreur humaine, panne ou mauvais usage. Le risque est la possibilite que cette exploitation se produise avec une consequence concrete. L'impact est cette consequence sur l'organisation. La contre-mesure est la reponse choisie pour reduire le risque.</p>
               <div class="explain-table-wrap">
                 <table class="explain-table">
                   <caption>Chaine de raisonnement securite</caption>
@@ -2897,18 +2899,32 @@
                   </tbody>
                 </table>
               </div>
+              <p>Exemple simple : un mot de passe faible est une vulnerabilite. Un attaquant qui essaie de le deviner est une menace. Le risque est le piratage du compte. L'impact peut etre la fuite de donnees ou l'usurpation d'identite. La contre-mesure peut etre un mot de passe fort, une politique de renouvellement et une authentification multifacteur.</p>
+              <div class="exam-reflex"><b>Piege classique :</b> la vulnerabilite n'est pas l'attaquant. La menace n'est pas la faiblesse. Le risque n'est pas la solution.</div>
             </div>
             <div class="part">
-              <h4>Regles de base</h4>
-              <p>Les regles importantes sont l'interdiction par defaut, le moindre privilege et la defense en profondeur. Interdiction par defaut signifie que tout est refuse sauf ce qui est explicitement autorise. Le moindre privilege donne a chaque utilisateur seulement les droits necessaires. La defense en profondeur superpose plusieurs protections comme firewall, controle d'acces, IDS/IPS, sauvegarde et chiffrement.</p>
+              <h4>Regles de base a citer dans les reponses</h4>
+              <p>Trois principes reviennent dans le cours et restent utiles dans les examens. L'interdiction par defaut signifie que tout est refuse sauf ce qui est explicitement autorise. Le moindre privilege signifie qu'un utilisateur, un service ou une application ne doit avoir que les droits necessaires. La defense en profondeur signifie qu'on ne fait pas confiance a une seule protection : on combine plusieurs couches comme controle d'acces, firewall, IDS/IPS, chiffrement, sauvegardes et journalisation.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Principes a mobiliser dans une justification</caption>
+                  <thead><tr><th>Principe</th><th>Idee</th><th>Quand le citer</th></tr></thead>
+                  <tbody>
+                    <tr><td>Interdiction par defaut</td><td>Refuser tout sauf ce qui est autorise.</td><td>Regles d'acces, firewall, ACL, services exposes.</td></tr>
+                    <tr><td>Moindre privilege</td><td>Donner seulement les droits utiles.</td><td>Comptes utilisateurs, droits admin, applications.</td></tr>
+                    <tr><td>Defense en profondeur</td><td>Empiler plusieurs couches de protection.</td><td>Quand une seule mesure ne suffit pas.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Ces principes servent souvent a justifier une contre-mesure. Par exemple, si une question demande comment reduire un risque, une bonne reponse peut combiner patch, chiffrement, filtrage et surveillance au lieu de proposer une seule solution isolee.</p>
             </div>
             <div class="course-path">
               <strong>Chemin de revision du chapitre 1</strong>
               <div class="path-steps">
-                <div class="path-step"><span>1</span><b>Comprendre le SI</b><em>Identifier actifs, donnees, utilisateurs et procedures.</em></div>
-                <div class="path-step"><span>2</span><b>Relier DIC aux risques</b><em>Associer chaque objectif a une vulnerabilite et une contre-mesure.</em></div>
-                <div class="path-step"><span>3</span><b>S'appuyer sur les examens</b><em>Reviser les tableaux DIC, risque, impact et defense en profondeur.</em></div>
-                <div class="path-step"><span>4</span><b>Reflexe final</b><em>Toujours citer objectif menace + solution adaptee.</em></div>
+                <div class="path-step"><span>1</span><b>Identifier l'actif</b><em>Donnees, compte, serveur, application, equipement ou service.</em></div>
+                <div class="path-step"><span>2</span><b>Choisir le bon objectif</b><em>Confidentialite, integrite, disponibilite ou preuve.</em></div>
+                <div class="path-step"><span>3</span><b>Nommer la chaine</b><em>Vulnerabilite, menace, risque, impact, contre-mesure.</em></div>
+                <div class="path-step"><span>4</span><b>Justifier proprement</b><em>Citer le principe adapte : deny par defaut, moindre privilege ou defense en profondeur.</em></div>
               </div>
             </div>
             <div class="lesson-lab" data-lesson="c1">
@@ -2960,32 +2976,49 @@
               </div>
             </div>
             <div class="part">
+              <h4>Les 4 familles d'attaques du chapitre 2</h4>
+              <p>Le cours ne presente pas seulement des attaques isolees. Il classe les attaques reseau en quatre grandes familles. Pour reviser correctement, il faut connaitre la famille, les exemples associes et l'objectif touche.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Classification des attaques selon le cours</caption>
+                  <thead><tr><th>Famille</th><th>Principe</th><th>Attaques citees dans le cours</th><th>Objectif souvent touche</th></tr></thead>
+                  <tbody>
+                    <tr><td>Attaques de reconnaissance</td><td>Collecter des informations avant une intrusion.</td><td>Internet information queries, whois, nslookup, DNS, packet sniffing, ping sweep, port scan.</td><td>Preparation d'attaque, confidentialite.</td></tr>
+                    <tr><td>Attaques d'acces</td><td>Exploiter une faille pour obtenir un acces non autorise.</td><td>Password attacks, force brute, cheval de Troie, IP spoofing, sniffers, manipulation des utilisateurs, trust exploitation, port redirection, MITM.</td><td>Authentification, confidentialite, integrite.</td></tr>
+                    <tr><td>Attaques DoS</td><td>Rendre un reseau, un hote ou une application indisponible.</td><td>DoS, DDoS, Ping of Death, Smurf Attack, TCP SYN Flood.</td><td>Disponibilite.</td></tr>
+                    <tr><td>Attaques OS</td><td>Exploiter les vulnerabilites du systeme d'exploitation.</td><td>Buffer Overflow, escalade de privileges, rootkits, malware, virus, vers, chevaux de Troie, Zero-Day.</td><td>Confidentialite, integrite, disponibilite.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="exam-reflex"><b>Reflexe examen :</b> avant d'expliquer une attaque, commence par dire a quelle famille elle appartient. Exemple : SYN Flood appartient aux attaques DoS, ARP Spoofing peut conduire a un MITM, et Port Scan appartient aux attaques de reconnaissance.</div>
+            </div>
+            <div class="part">
               <h4>Attaques reseaux courantes</h4>
               <p>Pour repondre aux questions d'examen, il faut lire chaque attaque en quatre points : ce que fait l'attaquant, quel chemin prend le trafic, quel objectif DIC est touche et quelle defense proposer.</p>
               <div class="attack-concepts">
                 <div class="attack-concept">
                   <b>Sniffing</b>
-                  <span>L'attaquant ecoute les paquets qui circulent. Si HTTP, FTP, Telnet ou un autre protocole en clair est utilise, les identifiants et donnees peuvent etre lus. Impact principal : confidentialite.</span>
+                  <span><strong>Type : attaque de reconnaissance.</strong> L'attaquant ecoute les paquets qui circulent. Si HTTP, FTP, Telnet ou un autre protocole en clair est utilise, les identifiants et donnees peuvent etre lus. Impact principal : confidentialite.</span>
                 </div>
                 <div class="attack-concept">
                   <b>ARP Spoofing</b>
-                  <span>L'attaquant envoie de fausses associations IP/MAC dans le reseau local. La victime associe par exemple l'IP de la passerelle a la MAC de l'attaquant. Consequence directe : le trafic de la victime est detourne vers l'attaquant.</span>
+                  <span><strong>Type : attaque d'acces / usurpation.</strong> L'attaquant envoie de fausses associations IP/MAC dans le reseau local. La victime associe par exemple l'IP de la passerelle a la MAC de l'attaquant. Consequence directe : le trafic de la victime est detourne vers l'attaquant.</span>
                 </div>
                 <div class="attack-concept">
                   <b>Spoofing</b>
-                  <span>L'attaquant usurpe une identite technique : adresse IP, adresse MAC, nom DNS ou autre identifiant reseau. La victime ou un equipement croit alors communiquer avec une entite legitime. Impacts : authentification et integrite.</span>
+                  <span><strong>Type : attaque d'acces / usurpation d'identite.</strong> L'attaquant usurpe une identite technique : adresse IP, adresse MAC, nom DNS ou autre identifiant reseau. La victime ou un equipement croit alors communiquer avec une entite legitime. Impacts : authentification et integrite.</span>
                 </div>
                 <div class="attack-concept">
                   <b>MITM</b>
-                  <span>Le MITM est la situation obtenue quand l'attaquant est au milieu de la communication. Il recoit le trafic, peut l'observer ou le modifier, puis le relaie vers la vraie destination. Impacts : confidentialite et integrite.</span>
+                  <span><strong>Type : attaque d'acces.</strong> Le MITM est la situation obtenue quand l'attaquant est au milieu de la communication. Il recoit le trafic, peut l'observer ou le modifier, puis le relaie vers la vraie destination. Impacts : confidentialite et integrite.</span>
                 </div>
                 <div class="attack-concept">
                   <b>SYN flood</b>
-                  <span>L'attaquant envoie beaucoup de demandes SYN pour ouvrir des connexions TCP. Le serveur garde des connexions semi-ouvertes jusqu'a saturation. Consequence principale : le service devient indisponible.</span>
+                  <span><strong>Type : attaque DoS.</strong> L'attaquant envoie beaucoup de demandes SYN pour ouvrir des connexions TCP. Le serveur garde des connexions semi-ouvertes jusqu'a saturation. Consequence principale : le service devient indisponible.</span>
                 </div>
                 <div class="attack-concept">
                   <b>Smurf</b>
-                  <span>L'attaquant usurpe l'adresse IP de la victime et envoie des requetes ICMP vers une adresse de broadcast. Beaucoup de machines repondent a la victime, ce qui la sature. Impact principal : disponibilite.</span>
+                  <span><strong>Type : attaque DoS / DDoS.</strong> L'attaquant usurpe l'adresse IP de la victime et envoie des requetes ICMP vers une adresse de broadcast. Beaucoup de machines repondent a la victime, ce qui la sature. Impact principal : disponibilite.</span>
                 </div>
               </div>
               <div class="exam-reflex"><b>Reflexe QCM :</b> si la question parle d'ARP Spoofing, la consequence principale est le detournement du trafic vers l'attaquant. Cela peut ensuite permettre un MITM.</div>
