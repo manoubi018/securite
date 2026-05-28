@@ -3485,8 +3485,8 @@
                     <tr><td>FN</td><td>Faux negatif.</td><td>Une attaque existe mais n'est pas detectee.</td></tr>
                     <tr><td>VN</td><td>Vrai negatif.</td><td>Un trafic normal est reconnu comme normal.</td></tr>
                     <tr><td>FP</td><td>Faux positif.</td><td>Un trafic normal est signale comme attaque.</td></tr>
-                    <tr><td>Sensibilite = 100%</td><td>Toutes les attaques sont correctement detectees.</td><td>Aucun faux negatif.</td></tr>
-                    <tr><td>Specificite = 100%</td><td>Tous les cas normaux sont correctement identifies.</td><td>Aucun faux positif.</td></tr>
+                    <tr><td>Sensibilite = VP / (VP + FN)</td><td>Mesure la capacite a detecter les vraies attaques.</td><td>Si sensibilite = 100%, toutes les attaques sont detectees : aucun faux negatif.</td></tr>
+                    <tr><td>Specificite = VN / (VN + FP)</td><td>Mesure la capacite a reconnaitre le trafic normal.</td><td>Si specificite = 100%, tous les cas normaux sont correctement identifies : aucun faux positif.</td></tr>
                   </tbody>
                 </table>
               </div>
