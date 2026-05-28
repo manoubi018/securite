@@ -2941,6 +2941,23 @@
               </div>
               <p>Ces principes servent souvent a justifier une contre-mesure. Par exemple, si une question demande comment reduire un risque, une bonne reponse peut combiner patch, chiffrement, filtrage et surveillance au lieu de proposer une seule solution isolee.</p>
             </div>
+            <div class="part">
+              <h4>Questions basees sur un scan de vulnerabilites</h4>
+              <p>Certaines annales ne demandent pas seulement la definition de vulnerabilite. Elles partent d'un scan realise avec un outil comme Nessus, Nmap ou OpenVAS, puis demandent ce qu'on peut detecter et comment evaluer le risque. Dans ce cas, il faut separer trois idees : ce que l'outil observe, pourquoi c'est dangereux, et quelle correction proposer.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Lire un resultat de scan</caption>
+                  <thead><tr><th>Constat du scan</th><th>Type de vulnerabilite</th><th>Risque associe</th><th>Correction logique</th></tr></thead>
+                  <tbody>
+                    <tr><td>Port inutile ouvert</td><td>Surface d'attaque excessive.</td><td>Service attaquable depuis le reseau.</td><td>Fermer le port ou filtrer par firewall.</td></tr>
+                    <tr><td>Version obsolete</td><td>Logiciel non corrige.</td><td>Exploitation d'une faille connue.</td><td>Mettre a jour ou patcher.</td></tr>
+                    <tr><td>Mot de passe faible</td><td>Faiblesse d'authentification.</td><td>Force brute ou usurpation de compte.</td><td>Politique de mot de passe + MFA.</td></tr>
+                    <tr><td>Service chiffre absent</td><td>Donnees en clair.</td><td>Sniffing, vol d'identifiants.</td><td>HTTPS, SSH, VPN ou TLS.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="exam-reflex"><b>Reflexe examen :</b> un scan detecte surtout des faiblesses ou des services exposes ; il ne prouve pas a lui seul qu'une attaque a deja reussi.</div>
+            </div>
             <div class="course-path">
               <strong>Chemin de revision du chapitre 1</strong>
               <div class="path-steps">
@@ -3077,6 +3094,23 @@
               <h4>Attenuation des attaques</h4>
               <p>Les defenses associent plusieurs mesures : segmentation du reseau, filtrage firewall, chiffrement des communications, authentification forte, mises a jour, surveillance IDS/IPS et bonnes pratiques utilisateurs. A l'examen, il faut toujours relier l'attaque a l'objectif de securite menace : confidentialite, integrite ou disponibilite.</p>
             </div>
+            <div class="part">
+              <h4>Methode pour lire un incident d'examen</h4>
+              <p>Quand un sujet donne un petit scenario, il faut d'abord reperer l'indice technique principal. Des ports testes regulierement font penser a une reconnaissance ou un port scan. Des connexions TCP semi-ouvertes font penser a un SYN flood. Des mots de passe generes automatiquement font penser a une attaque par force brute. Une interception locale avec de fausses associations ARP fait penser a de l'ARP spoofing qui peut conduire a un MITM.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Indices typiques dans les annales</caption>
+                  <thead><tr><th>Indice dans l'enonce</th><th>Attaque probable</th><th>Question de justification</th></tr></thead>
+                  <tbody>
+                    <tr><td>Ports cibles a intervalles reguliers</td><td>Port scan / reconnaissance.</td><td>Collecte d'informations avant intrusion.</td></tr>
+                    <tr><td>Connexions semi-ouvertes nombreuses</td><td>SYN flood.</td><td>Saturation des ressources TCP du serveur.</td></tr>
+                    <tr><td>Mots de passe testes automatiquement</td><td>Force brute / password attack.</td><td>Tentative d'acces non autorise par essais repetes.</td></tr>
+                    <tr><td>Trafic detourne localement</td><td>ARP spoofing puis MITM.</td><td>Usurpation IP/MAC et interception du trafic.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="exam-reflex"><b>Point de vigilance :</b> l'ARP spoofing demande generalement la presence sur le meme reseau local ou le meme domaine de broadcast que la victime.</div>
+            </div>
             <div class="course-path">
               <strong>Chemin de revision du chapitre 2</strong>
               <div class="path-steps">
@@ -3167,6 +3201,23 @@
                   </tbody>
                 </table>
               </div>
+            </div>
+            <div class="part">
+              <h4>Questions ouvertes frequentes en cryptographie</h4>
+              <p>Les annales demandent souvent de comparer deux mecanismes ou d'expliquer une procedure. Il faut donc savoir repondre en phrases simples : DES ou AES servent a chiffrer rapidement avec une cle secrete partagee ; RSA ou ECC servent plutot a echanger une cle, signer ou authentifier ; un hash sert a verifier l'integrite ; une signature sert a prouver l'origine et l'integrite.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Comparaisons qui tombent souvent</caption>
+                  <thead><tr><th>Question type</th><th>Reponse courte attendue</th><th>Point a justifier</th></tr></thead>
+                  <tbody>
+                    <tr><td>Avantage de DES/AES face a RSA</td><td>Plus rapide pour chiffrer de gros volumes.</td><td>Mais probleme d'echange de la cle secrete.</td></tr>
+                    <tr><td>Avantage de RSA face a DES</td><td>Pas besoin de partager une cle secrete avant l'echange.</td><td>Mais cout de calcul plus eleve.</td></tr>
+                    <tr><td>Comment signer un message ?</td><td>Signer le hash avec la cle privee de l'emetteur.</td><td>Verifier avec la cle publique correspondante.</td></tr>
+                    <tr><td>Comment valider un certificat ?</td><td>Verifier CA, date, revocation et identite.</td><td>S'assurer que la cle publique est fiable.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="exam-reflex"><b>Reflexe examen :</b> pour une confidentialite RSA vers A, on chiffre avec la cle publique de A ; pour une signature de A, on signe avec la cle privee de A.</div>
             </div>
             <div class="course-path">
               <strong>Chemin de revision du chapitre 3</strong>
@@ -3334,6 +3385,39 @@
               <div class="exam-reflex"><b>Reflexe examen :</b> si une politique parle d'un flux autorise dans les deux sens, il faut verifier qu'il existe bien toutes les regles necessaires. Si un cas n'est pas couvre, alors une regle manque.</div>
             </div>
             <div class="part">
+              <h4>Comment lire une figure d'architecture</h4>
+              <p>Le resume doit aussi aider sur les sujets bases sur une figure. Dans une architecture classique, il faut d'abord nommer les zones, puis regarder combien de firewalls ou d'interfaces sont presents. Si le schema montre WAN, DMZ et LAN separes par un pare-feu a plusieurs interfaces, on pense a un multi-homed firewall. Si deux firewalls encadrent une DMZ, on justifie une architecture plus segmentee avec une zone publique au milieu.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Lecture rapide d'une architecture</caption>
+                  <thead><tr><th>Ce qu'on voit</th><th>Question a poser</th><th>Conclusion typique</th></tr></thead>
+                  <tbody>
+                    <tr><td>Serveur accessible depuis Internet</td><td>Dans quelle zone doit-il etre place ?</td><td>En DMZ.</td></tr>
+                    <tr><td>WAN, LAN et DMZ sur plusieurs interfaces</td><td>Le firewall separe-t-il plusieurs zones ?</td><td>Multi-homed firewall.</td></tr>
+                    <tr><td>Deux firewalls autour de la DMZ</td><td>La zone publique est-elle isolee des deux cotes ?</td><td>Architecture plus cloisonnee.</td></tr>
+                    <tr><td>Serveur public directement dans le LAN</td><td>Le LAN est-il trop expose ?</td><td>Mauvaise pratique a corriger.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="part">
+              <h4>Traduire une description textuelle en regles</h4>
+              <p>Quand l'enonce dit par exemple qu'un serveur Web en DMZ doit etre accessible depuis Internet en HTTP/HTTPS, il faut convertir cette phrase en champs techniques : source = WAN, destination = serveur Web DMZ, protocole = TCP, port destination = 80 et 443, action = allow. C'est cette traduction qui permet ensuite de completer une table ou de verifier si une regle manque.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Passer du texte a l'ACL</caption>
+                  <thead><tr><th>Texte de politique</th><th>Traduction utile</th><th>Point de controle</th></tr></thead>
+                  <tbody>
+                    <tr><td>Les clients accedent au serveur Web</td><td>WAN -> serveur Web DMZ -> TCP 80/443 -> Allow.</td><td>Verifier que la destination est bien la DMZ.</td></tr>
+                    <tr><td>L'administrateur accede en SSH</td><td>IP admin -> serveur cible -> TCP 22 -> Allow.</td><td>Regle precise, pas un acces trop large.</td></tr>
+                    <tr><td>Les workstations accedent a un serveur FTP</td><td>LAN -> serveur FTP -> TCP 20/21 -> Allow.</td><td>Verifier source, port et bon firewall.</td></tr>
+                    <tr><td>Tout le reste doit etre bloque</td><td>Drop * * * * *</td><td>Confirme le refus par defaut.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="exam-reflex"><b>Regles manquantes :</b> si une regle textuelle existe mais qu'aucune ligne ACL ne la realise dans la bonne zone, il faut conclure qu'une regle manque.</div>
+            </div>
+            <div class="part">
               <h4>Limites du firewall et equipements complementaires</h4>
               <p>Le firewall est essentiel, mais il ne suffit pas contre toutes les attaques. Il filtre des flux selon des criteres et des regles, mais il ne remplace ni un antivirus, ni un antimalware, ni une sensibilisation des utilisateurs. Certaines attaques applicatives ou internes peuvent necessiter un IDS ou un IPS. C'est pour cela que les examens demandent parfois quel equipement ajouter lorsque le firewall ne suffit pas.</p>
               <div class="explain-table-wrap">
@@ -3474,6 +3558,22 @@
               </div>
             </div>
             <div class="part">
+              <h4>Types d'architecture IDS/IPS</h4>
+              <p>Les sujets ne demandent pas seulement de choisir un equipement ; ils demandent parfois le type d'architecture. Il faut donc distinguer NIDS/NIPS, qui observent ou bloquent le trafic reseau, de HIDS/HIPS, qui protegent directement une machine. Dans un exercice de firewall et de serveurs, la reponse attendue est souvent un equipement reseau place avant une zone critique ou juste derriere un firewall.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Architecture a citer</caption>
+                  <thead><tr><th>Type</th><th>Observe quoi ?</th><th>Ou le placer ?</th><th>Quand le citer</th></tr></thead>
+                  <tbody>
+                    <tr><td>NIDS</td><td>Trafic reseau en ecoute.</td><td>Peripherie ou zone critique.</td><td>Quand on veut voir sans bloquer.</td></tr>
+                    <tr><td>NIPS</td><td>Trafic reseau dans le chemin.</td><td>En ligne avant ou apres le firewall selon l'enonce.</td><td>Quand on veut detecter et bloquer.</td></tr>
+                    <tr><td>HIDS</td><td>Evenements d'un hote.</td><td>Sur le serveur lui-meme.</td><td>Quand le probleme est local a une machine.</td></tr>
+                    <tr><td>HIPS</td><td>Protection active d'un hote.</td><td>Sur le serveur ou poste critique.</td><td>Quand on veut une prevention locale.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="part">
               <h4>Limites et integration</h4>
               <p>Les IDS/IPS peuvent produire beaucoup d'alertes, dont certaines sont fausses. Le trafic chiffre peut aussi limiter l'analyse. C'est pourquoi les alertes doivent etre correlees avec d'autres sources dans un SOC ou un SIEM. Dans les TP, Snort permet de concretiser ce fonctionnement avec des regles et des alertes.</p>
               <div class="explain-table-wrap">
@@ -3567,6 +3667,24 @@
             <div class="part">
               <h4>Lecture examen</h4>
               <p>Si la question parle de mobilite ou de teletravail, le type le plus adapte est generalement client-to-site. Si elle parle de deux reseaux d'entreprise distants, il faut penser site-to-site. Si elle demande les objectifs de securite du VPN, il faut citer confidentialite, integrite, authentification et anti-rejeu.</p>
+            </div>
+            <div class="part">
+              <h4>Questions pratiques sur le VPN</h4>
+              <p>Dans les annales, on demande souvent ce qui rend la connexion securisee, quel type de liaison choisir, et s'il faut une nouvelle plage d'adresses IP. La reponse courte est la suivante : la securite vient du chiffrement, de l'authentification, de l'integrite et de l'anti-rejeu ; le type depend du contexte ; et un pool d'adresses supplementaire peut etre necessaire surtout pour les clients distants afin de leur attribuer une IP virtuelle du VPN.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Reponses pratiques attendues</caption>
+                  <thead><tr><th>Question</th><th>Reponse de base</th><th>Nuance utile</th></tr></thead>
+                  <tbody>
+                    <tr><td>Qu'est-ce qui securise la liaison ?</td><td>Chiffrement + authentification + integrite + anti-rejeu.</td><td>Ne pas repondre seulement "VPN" ou seulement "cryptage".</td></tr>
+                    <tr><td>Quel type pour le teletravail ?</td><td>Client-to-site.</td><td>L'utilisateur distant entre dans le LAN via un tunnel.</td></tr>
+                    <tr><td>Quel type pour deux reseaux ?</td><td>Site-to-site.</td><td>Deux passerelles ou deux LAN sont relies.</td></tr>
+                    <tr><td>Quel type pour un client/partenaire ?</td><td>Extranet-based.</td><td>Entreprise vers organisation externe.</td></tr>
+                    <tr><td>Faut-il une nouvelle plage IP ?</td><td>Souvent oui pour un pool VPN client.</td><td>Cela depend de l'architecture choisie et de l'enonce.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="exam-reflex"><b>Choix IPsec :</b> site-to-site -> mode tunnel presque toujours ; client-to-site -> tunnel le plus courant, transport seulement si l'enonce parle plutot d'une protection hote-a-hote.</div>
             </div>
             <div class="course-path">
               <strong>Chemin de revision du chapitre 6</strong>
