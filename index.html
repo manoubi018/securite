@@ -2900,6 +2900,29 @@
                 </table>
               </div>
               <p>Exemple simple : un mot de passe faible est une vulnerabilite. Un attaquant qui essaie de le deviner est une menace. Le risque est le piratage du compte. L'impact peut etre la fuite de donnees ou l'usurpation d'identite. La contre-mesure peut etre un mot de passe fort, une politique de renouvellement et une authentification multifacteur.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Evaluer un risque dans une question d'examen</caption>
+                  <thead><tr><th>Element</th><th>Question a poser</th><th>Reponse attendue</th></tr></thead>
+                  <tbody>
+                    <tr><td>Impact</td><td>Si le risque arrive, est-ce grave ?</td><td>Perte de donnees, arret de service, cout financier, image.</td></tr>
+                    <tr><td>Occurrence</td><td>Est-ce probable ou frequent ?</td><td>Faible, moyenne ou elevee selon le contexte.</td></tr>
+                    <tr><td>Criticite</td><td>Comment classer le risque ?</td><td>Vital, critique, sensible ou non critique.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="exam-reflex"><b>Reflexe examen :</b> pour evaluer un risque, croiser toujours l'impact avec l'occurrence. Plus l'impact et la probabilite sont eleves, plus le risque est critique.</div>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Contremesures et outils de detection</caption>
+                  <thead><tr><th>Element</th><th>Idee</th><th>Exemple examen</th></tr></thead>
+                  <tbody>
+                    <tr><td>Preventive</td><td>Agit avant l'attaque pour reduire la probabilite.</td><td>Firewall, patch, mot de passe fort, sensibilisation.</td></tr>
+                    <tr><td>Corrective</td><td>Agit apres l'incident pour corriger ou restaurer.</td><td>Restaurer une sauvegarde, corriger une faille, isoler une machine.</td></tr>
+                    <tr><td>Outil de scan</td><td>Detecte des faiblesses ou services exposes.</td><td>Nessus, Nmap, OpenVAS.</td></tr>
+                  </tbody>
+                </table>
+              </div>
               <div class="exam-reflex"><b>Piege classique :</b> la vulnerabilite n'est pas l'attaquant. La menace n'est pas la faiblesse. Le risque n'est pas la solution.</div>
             </div>
             <div class="part">
@@ -2956,6 +2979,7 @@
                     <tr><td>White Hat</td><td>Agit avec autorisation du proprietaire du systeme.</td><td>Trouver les failles, les signaler et aider a les corriger.</td></tr>
                     <tr><td>Black Hat</td><td>Agit sans autorisation et dans un cadre malveillant.</td><td>Voler, detruire, perturber ou obtenir un acces non autorise.</td></tr>
                     <tr><td>Gray Hat</td><td>Se situe entre les deux : peut chercher des failles sans autorisation claire.</td><td>Decouvrir ou signaler des failles, mais hors cadre legal strict.</td></tr>
+                    <tr><td>Malicious Insider</td><td>Personne interne ou ancien employe qui abuse de sa connaissance du systeme.</td><td>Nuire, voler des donnees ou perturber l'organisation depuis une position de confiance.</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -3043,9 +3067,11 @@
                     <tr><td>MITM</td><td>Se placer entre deux communications.</td><td>Confidentialite, integrite.</td><td>TLS, certificats, VPN, IDS.</td></tr>
                     <tr><td>SYN flood</td><td>Saturer l'ouverture TCP.</td><td>Disponibilite.</td><td>Filtrage, SYN cookies, IPS.</td></tr>
                     <tr><td>Smurf</td><td>Amplifier ICMP vers une victime.</td><td>Disponibilite.</td><td>Filtrage ICMP, anti-spoofing.</td></tr>
+                    <tr><td>Port Scan</td><td>Tester les ports ouverts pour preparer une attaque.</td><td>Reconnaissance.</td><td>Firewall, fermeture des ports inutiles, IDS/IPS.</td></tr>
                   </tbody>
                 </table>
               </div>
+              <div class="exam-reflex"><b>Cas Port Scan :</b> dans les annales, il est accepte comme attaque passive si l'idee est seulement la collecte d'informations, mais il reste une action de reconnaissance active techniquement. Justifier avec l'enonce.</div>
             </div>
             <div class="part">
               <h4>Attenuation des attaques</h4>
@@ -3082,6 +3108,7 @@
             <div class="part">
               <h4>Chiffrement symetrique</h4>
               <p>Dans le chiffrement symetrique, la meme cle sert a chiffrer et a dechiffrer. Ce mecanisme est rapide et adapte aux grands volumes de donnees, mais il pose un probleme important : les deux parties doivent deja partager la cle secrete de maniere sure. Si la cle est interceptee, toute la communication devient compromise.</p>
+              <div class="exam-reflex"><b>Calcul qui tombe :</b> si chaque paire de personnes doit partager deux cles directionnelles, on utilise <code>n x (n - 1)</code>. Exemple : 25 personnes -> 25 x 24 = 600 cles. Si une seule cle par paire suffit, on utilise <code>n x (n - 1) / 2</code>.</div>
             </div>
             <div class="part">
               <h4>Chiffrement asymetrique</h4>
@@ -3095,6 +3122,17 @@
                     <tr><td>Vitesse</td><td>Rapide.</td><td>Plus lent.</td></tr>
                     <tr><td>Probleme principal</td><td>Echange securise de la cle.</td><td>Confiance dans la cle publique.</td></tr>
                     <tr><td>Usage typique</td><td>Chiffrer beaucoup de donnees.</td><td>Echanger une cle, signer, authentifier.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Exemples d'algorithmes a citer</caption>
+                  <thead><tr><th>Famille</th><th>Algorithmes possibles</th><th>Usage typique</th></tr></thead>
+                  <tbody>
+                    <tr><td>Symetrique</td><td>DES, 3DES, AES, RC4.</td><td>Chiffrer rapidement des donnees.</td></tr>
+                    <tr><td>Cle publique</td><td>RSA, Diffie-Hellman, ElGamal, ECC.</td><td>Chiffrer avec cle publique, echanger une cle, signer ou authentifier.</td></tr>
+                    <tr><td>Hash</td><td>SHA, SHA-256, MD5.</td><td>Produire une empreinte pour verifier l'integrite.</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -3117,6 +3155,18 @@
             <div class="part">
               <h4>Certificat numerique et PKI</h4>
               <p>Un certificat numerique associe une identite a une cle publique. Il est signe par une autorite de certification, ce qui permet aux autres de faire confiance a cette cle. L'infrastructure de gestion des cles, ou PKI, organise la creation, la distribution, la verification et la revocation des certificats.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Verifier un certificat numerique</caption>
+                  <thead><tr><th>Controle</th><th>Pourquoi ?</th><th>Reponse courte</th></tr></thead>
+                  <tbody>
+                    <tr><td>Signature de la CA</td><td>Savoir si le certificat vient d'une autorite fiable.</td><td>Verifier la signature de l'autorite de certification.</td></tr>
+                    <tr><td>Dates de validite</td><td>Eviter un certificat expire ou pas encore valide.</td><td>Verifier la periode de validite.</td></tr>
+                    <tr><td>Revocation</td><td>Savoir si le certificat a ete annule.</td><td>Consulter CRL ou OCSP.</td></tr>
+                    <tr><td>Identite</td><td>S'assurer que la cle publique appartient bien au bon serveur/utilisateur.</td><td>Comparer le nom/identite avec l'entite attendue.</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="course-path">
               <strong>Chemin de revision du chapitre 3</strong>
@@ -3397,6 +3447,7 @@
             <div class="part">
               <h4>Positionnement IDS/IPS</h4>
               <p>Le firewall filtre les flux selon des regles, mais il ne suffit pas toujours a detecter un comportement suspect. L'IDS observe le trafic ou les evenements systeme et genere des alertes. L'IPS va plus loin : il peut bloquer ou limiter une attaque en temps reel. IDS et IPS s'integrent dans une defense en profondeur avec firewall, antivirus, SIEM et SOC.</p>
+              <div class="exam-reflex"><b>Bonne pratique examen :</b> dans une entreprise, on peut placer IDS/IPS a la peripherie du reseau et aussi a l'interieur, pres des zones critiques. La peripherie voit les attaques venant de l'exterieur ; l'interieur aide a detecter les mouvements internes.</div>
             </div>
             <div class="part">
               <h4>Concept d'intrusion</h4>
@@ -3425,6 +3476,20 @@
             <div class="part">
               <h4>Limites et integration</h4>
               <p>Les IDS/IPS peuvent produire beaucoup d'alertes, dont certaines sont fausses. Le trafic chiffre peut aussi limiter l'analyse. C'est pourquoi les alertes doivent etre correlees avec d'autres sources dans un SOC ou un SIEM. Dans les TP, Snort permet de concretiser ce fonctionnement avec des regles et des alertes.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Mesures IDS qui peuvent tomber</caption>
+                  <thead><tr><th>Terme</th><th>Signification</th><th>Interpretation examen</th></tr></thead>
+                  <tbody>
+                    <tr><td>VP</td><td>Vrai positif.</td><td>Une attaque est detectee comme attaque.</td></tr>
+                    <tr><td>FN</td><td>Faux negatif.</td><td>Une attaque existe mais n'est pas detectee.</td></tr>
+                    <tr><td>VN</td><td>Vrai negatif.</td><td>Un trafic normal est reconnu comme normal.</td></tr>
+                    <tr><td>FP</td><td>Faux positif.</td><td>Un trafic normal est signale comme attaque.</td></tr>
+                    <tr><td>Sensibilite = 100%</td><td>Toutes les attaques sont correctement detectees.</td><td>Aucun faux negatif.</td></tr>
+                    <tr><td>Specificite = 100%</td><td>Tous les cas normaux sont correctement identifies.</td><td>Aucun faux positif.</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="course-path">
               <strong>Chemin de revision du chapitre IDS/IPS</strong>
@@ -3468,6 +3533,7 @@
                   <tbody>
                     <tr><td>Client-to-site</td><td>Un utilisateur vers le reseau de l'entreprise.</td><td>Teletravail, utilisateur mobile.</td><td>Choisir si l'enonce parle d'employe distant.</td></tr>
                     <tr><td>Site-to-site</td><td>Deux reseaux distants.</td><td>Agence A vers agence B.</td><td>Choisir si l'enonce parle de deux LAN/sites.</td></tr>
+                    <tr><td>Extranet-based</td><td>Entreprise vers site d'un client ou partenaire.</td><td>Connexion securisee avec une organisation externe.</td><td>Choisir si l'enonce parle d'un client, fournisseur ou partenaire.</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -3475,6 +3541,16 @@
             <div class="part">
               <h4>IPsec et OpenVPN</h4>
               <p>IPsec est une suite de protocoles de securite pour proteger les communications IP. Il peut fonctionner en mode transport ou en mode tunnel. OpenVPN est une solution VPN largement utilisee, souvent plus simple a deployer dans certains environnements. Dans les fascicules, OpenVPN est configure puis observe avec Wireshark pour verifier l'etablissement du tunnel.</p>
+              <div class="explain-table-wrap">
+                <table class="explain-table">
+                  <caption>Modes IPsec a choisir</caption>
+                  <thead><tr><th>Mode</th><th>Principe</th><th>Cas d'examen</th></tr></thead>
+                  <tbody>
+                    <tr><td>Mode tunnel</td><td>Encapsule le paquet IP complet dans un nouveau paquet.</td><td>Site-to-site ; souvent accepte aussi pour client-to-site.</td></tr>
+                    <tr><td>Mode transport</td><td>Protege surtout la charge utile du paquet IP, sans encapsuler tout le paquet.</td><td>Communication hote-a-hote ; parfois accepte pour client-to-site selon l'enonce.</td></tr>
+                  </tbody>
+                </table>
+              </div>
               <div class="explain-table-wrap">
                 <table class="explain-table">
                   <caption>Services de securite d'un VPN</caption>
